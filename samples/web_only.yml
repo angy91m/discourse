@@ -14,7 +14,7 @@ templates:
 ## If you want Discourse to share a port with another webserver like Apache or nginx,
 ## see https://meta.discourse.org/t/17247 for details
 expose:
-  - "[::1]:9143:80"   # http
+  - "127.0.0.1:9143:80"   # http
   #- "443:443" # https
 
 # Use 'links' key to link containers together, aka use Docker --link flag.

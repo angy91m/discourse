@@ -22,7 +22,7 @@ templates:
 ## If you want Discourse to share a port with another webserver like Apache or nginx,
 ## see https://meta.discourse.org/t/17247 for details
 expose:
-  - "[::1]:9143:80"   # http
+  - "127.0.0.1:9143:80"   # http
   #- "443:443" # https
 
 params:
@@ -100,12 +100,12 @@ hooks:
         cd: $home/plugins
         cmd:
           - git clone https://github.com/discourse/docker_manager.git
-    - exec: |
-        [[ "$(cat /etc/hosts|grep wordpress)" != "" ]] || echo "$(cat /etc/hosts|grep 172|xargs -n 1|sed -n 1p|sed -E 's/(^[0-9]+\.[0-9]+\.[0-9]+\.)[0-9]+/\11/') wordpress.test.mpop" >> /etc/hosts
 
 ## Any custom commands to run after building
 run:
   - exec: echo "Beginning of custom commands"
+  - exec: |
+      [[ "$(cat /etc/hosts|grep 'wp.test.mpop')" != "" ]] || echo "$(cat /etc/hosts|grep 172|xargs -n 1|sed -n 1p|sed -E 's/(^[0-9]+\.[0-9]+\.[0-9]+\.)[0-9]+/\11/') wp.test.mpop" >> /etc/hosts
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
   ## After getting the first signup email, re-comment the line. It only needs to run once.
   #- exec: rails r "SiteSetting.notification_email='info@unconfigured.discourse.org'"
