@@ -104,8 +104,6 @@ hooks:
 ## Any custom commands to run after building
 run:
   - exec: echo "Beginning of custom commands"
-  - exec: |
-      [[ "$(cat /etc/hosts|grep 'wp.test.mpop')" != "" ]] || echo "$(cat /etc/hosts|grep 172|xargs -n 1|sed -n 1p|sed -E 's/(^[0-9]+\.[0-9]+\.[0-9]+\.)[0-9]+/\11/') wp.test.mpop" >> /etc/hosts
   ## If you want to set the 'From' email address for your first registration, uncomment and change:
   ## After getting the first signup email, re-comment the line. It only needs to run once.
   #- exec: rails r "SiteSetting.notification_email='info@unconfigured.discourse.org'"
