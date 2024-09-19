@@ -79,20 +79,20 @@ check_IP_match() {
     ec=2
   else
     echo Checking your domain name . . .
-    connect_to_port $HOST 443; ec=$?
+    connect_to_port $HOST 9143; ec=$?
   fi
   case $ec in
     0)
       echo "Connection to $HOST succeeded."
       ;;
     1)
-      echo "WARNING: Port 443 of computer does not appear to be accessible using hostname:  $HOST."
+      echo "WARNING: Port 9143 of computer does not appear to be accessible using hostname:  $HOST."
       if connect_to_port $HOST 80; then
         echo
         echo SUCCESS: A connection to port 80 succeeds!
         echo This suggests that your DNS settings are correct,
-        echo but something is keeping traffic to port 443 from getting to your server.
-        echo Check your networking configuration to see that connections to port 443 are allowed.
+        echo but something is keeping traffic to port 9143 from getting to your server.
+        echo Check your networking configuration to see that connections to port 9143 are allowed.
       else
         echo "WARNING: Connection to http://$HOST (port 80) also fails."
         echo
@@ -308,8 +308,8 @@ scale_ram_and_cpu() {
 ##
 check_ports() {
   check_port "80"
-  check_port "443"
-  echo "Ports 80 and 443 are free for use"
+  check_port "9143"
+  echo "Ports 80 and 9143 are free for use"
 }
 
 
