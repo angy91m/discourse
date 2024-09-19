@@ -79,22 +79,22 @@ check_IP_match() {
     ec=2
   else
     echo Checking your domain name . . .
-    connect_to_port $HOST 9143; ec=$?
+    connect_to_port $HOST 443; ec=$?
   fi
   case $ec in
     0)
       echo "Connection to $HOST succeeded."
       ;;
     1)
-      echo "WARNING: Port 9143 of computer does not appear to be accessible using hostname:  $HOST."
-      if connect_to_port $HOST 80; then
+      echo "WARNING: Port 443 of computer does not appear to be accessible using hostname:  $HOST."
+      if connect_to_port $HOST 9143; then
         echo
-        echo SUCCESS: A connection to port 80 succeeds!
+        echo SUCCESS: A connection to port 9143 succeeds!
         echo This suggests that your DNS settings are correct,
-        echo but something is keeping traffic to port 9143 from getting to your server.
-        echo Check your networking configuration to see that connections to port 9143 are allowed.
+        echo but something is keeping traffic to port 443 from getting to your server.
+        echo Check your networking configuration to see that connections to port 443 are allowed.
       else
-        echo "WARNING: Connection to http://$HOST (port 80) also fails."
+        echo "WARNING: Connection to http://$HOST (port 9143) also fails."
         echo
         echo "This suggests that $HOST resolves to some IP address that does not reach this "
         echo machine where you are installing discourse.
@@ -205,7 +205,7 @@ check_disk_and_memory() {
       sleep 5
 
       ##
-      ## derived from https://meta.discourse.org/t/13880
+      ## derived from https://meta.discourse.org/t/1389143
       ##
       install -o root -g root -m 0600 /dev/null /swapfile
       fallocate -l 2G /swapfile
@@ -307,9 +307,9 @@ scale_ram_and_cpu() {
 ## standard http / https ports must not be occupied
 ##
 check_ports() {
-  check_port "80"
   check_port "9143"
-  echo "Ports 80 and 9143 are free for use"
+  check_port "443"
+  echo "Ports 9143 and 443 are free for use"
 }
 
 

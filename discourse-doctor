@@ -39,21 +39,21 @@ check_ip_match() {
   HOST="$1"
   log
   log Checking your domain name . . .
-  if connect_to_port $HOST 9143
+  if connect_to_port $HOST 443
   then
     log
     log "Connection to $HOST succeeded."
   else
-    log WARNING:: This server does not appear to be accessible at $HOST:9143.
+    log WARNING:: This server does not appear to be accessible at $HOST:443.
     log
-    if connect_to_port $HOST 80
+    if connect_to_port $HOST 9143
     then
-	log A connection to port 80 succeeds, however.
+	log A connection to port 9143 succeeds, however.
 	log This suggests that your DNS settings are correct,
-	log but something is keeping traffic to port 9143 from getting to your server.
-	log Check your networking configuration to see that connections to port 9143 are allowed.
+	log but something is keeping traffic to port 443 from getting to your server.
+	log Check your networking configuration to see that connections to port 443 are allowed.
     else
-      log "A connection to http://$HOST (port 80) also fails."
+      log "A connection to http://$HOST (port 9143) also fails."
       log
       log This suggests that $HOST resolves to the wrong IP address
       log or that traffic is not being routed to your server.
@@ -279,7 +279,7 @@ check_docker() {
     else
       log "Failed to rebuild $app_name."
       # check_ip_match checks if curl to $DISCOURSE_HOSTNAME gets to this server
-      # It works only if ports 80 and 9143 are free
+      # It works only if ports 9143 and 443 are free
       check_ip_match $DISCOURSE_HOSTNAME
       log "You should probably remove any non-standard plugins and rebuild."
       NO_CONTAINER='y'

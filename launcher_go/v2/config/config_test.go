@@ -41,7 +41,7 @@ var _ = Describe("Config", func() {
 		dockerfile := conf.Dockerfile("", false)
 		Expect(dockerfile).To(ContainSubstring("ARG DISCOURSE_DEVELOPER_EMAILS"))
 		Expect(dockerfile).To(ContainSubstring("RUN cat /temp-config.yaml"))
-		Expect(dockerfile).To(ContainSubstring("EXPOSE 80"))
+		Expect(dockerfile).To(ContainSubstring("EXPOSE 9143"))
 	})
 
 	Context("hostname tests", func() {
