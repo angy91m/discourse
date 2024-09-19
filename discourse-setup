@@ -308,8 +308,8 @@ scale_ram_and_cpu() {
 ##
 check_ports() {
   check_port "9143"
-  check_port "443"
-  echo "Ports 9143 and 443 are free for use"
+  #check_port "443"
+  echo "Ports 9143 are free for use"
 }
 
 
